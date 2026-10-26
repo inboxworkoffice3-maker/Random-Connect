@@ -1,0 +1,178 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Registered user account and settings",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 256 },
+        "publicId": { "type": "string", "maxLength": 32 },
+        "displayName": { "type": "string", "maxLength": 60 },
+        "age": { "type": "number" },
+        "gender": { "type": "string", "enum": ["male", "female", "non-binary", "prefer_not_to_say"] },
+        "city": { "type": "string", "maxLength": 100 },
+        "language": { "type": "string", "enum": ["en", "hi", "hinglish"] },
+        "matchingPreference": { "type": "string", "enum": ["open", "female", "male", "nearby"] },
+        "isProfileComplete": { "type": "boolean" },
+        "isBanned": { "type": "boolean" },
+        "banReason": { "type": "string", "maxLength": 255 },
+        "isSuspended": { "type": "boolean" },
+        "warningCount": { "type": "number" },
+        "role": { "type": "string", "enum": ["admin", "user"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "publicId", "displayName", "age", "isProfileComplete"]
+    },
+    "ChatSession": {
+      "title": "ChatSession",
+      "description": "Active or completed text/video matching session",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "type": { "type": "string", "enum": ["text", "video"] },
+        "user1Id": { "type": "string", "maxLength": 128 },
+        "user1PublicId": { "type": "string", "maxLength": 32 },
+        "user1DisplayName": { "type": "string", "maxLength": 60 },
+        "user2Id": { "type": "string", "maxLength": 128 },
+        "user2PublicId": { "type": "string", "maxLength": 32 },
+        "user2DisplayName": { "type": "string", "maxLength": 60 },
+        "status": { "type": "string", "enum": ["active", "ended", "skipped"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "type", "user1Id", "user2Id", "status"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Message within a chat session",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "sessionId": { "type": "string", "maxLength": 128 },
+        "senderId": { "type": "string", "maxLength": 128 },
+        "senderPublicId": { "type": "string", "maxLength": 32 },
+        "text": { "type": "string", "maxLength": 1000 },
+        "timestamp": { "type": "string" },
+        "status": { "type": "string", "enum": ["sent", "blocked", "warning"] }
+      },
+      "required": ["id", "sessionId", "senderId", "text", "timestamp"]
+    },
+    "CallSession": {
+      "title": "CallSession",
+      "description": "WebRTC video signaling session",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "callerId": { "type": "string", "maxLength": 128 },
+        "callerPublicId": { "type": "string", "maxLength": 32 },
+        "calleeId": { "type": "string", "maxLength": 128 },
+        "calleePublicId": { "type": "string", "maxLength": 32 },
+        "status": { "type": "string", "enum": ["calling", "connected", "ended"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "callerId", "calleeId", "status"]
+    },
+    "MatchingQueueItem": {
+      "title": "MatchingQueueItem",
+      "description": "User waiting in matchmaking pool",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "publicId": { "type": "string", "maxLength": 32 },
+        "displayName": { "type": "string", "maxLength": 60 },
+        "gender": { "type": "string", "maxLength": 30 },
+        "targetGender": { "type": "string", "maxLength": 30 },
+        "city": { "type": "string", "maxLength": 100 },
+        "mode": { "type": "string", "enum": ["text", "video"] },
+        "status": { "type": "string", "enum": ["waiting", "matched", "cancelled"] },
+        "matchedSessionId": { "type": "string", "maxLength": 128 },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["userId", "mode", "status"]
+    },
+    "Report": {
+      "title": "Report",
+      "description": "User harassment and violation report",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "reporterId": { "type": "string", "maxLength": 128 },
+        "reporterPublicId": { "type": "string", "maxLength": 32 },
+        "reportedUserId": { "type": "string", "maxLength": 128 },
+        "reportedPublicId": { "type": "string", "maxLength": 32 },
+        "category": { "type": "string", "maxLength": 60 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "sessionId": { "type": "string", "maxLength": 128 },
+        "status": { "type": "string", "enum": ["pending", "reviewed", "action_taken", "dismissed"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "reporterId", "reportedPublicId", "category", "description"]
+    },
+    "SupportTicket": {
+      "title": "SupportTicket",
+      "description": "Customer support ticket",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "ticketNumber": { "type": "string", "maxLength": 30 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "userPublicId": { "type": "string", "maxLength": 32 },
+        "email": { "type": "string", "maxLength": 256 },
+        "subject": { "type": "string", "maxLength": 150 },
+        "message": { "type": "string", "maxLength": 2000 },
+        "category": { "type": "string", "maxLength": 50 },
+        "status": { "type": "string", "enum": ["open", "in_progress", "resolved"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "ticketNumber", "userId", "subject", "message", "status"]
+    },
+    "UserBlock": {
+      "title": "UserBlock",
+      "description": "Blocked user relation",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 256 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "blockedUserId": { "type": "string", "maxLength": 128 },
+        "blockedPublicId": { "type": "string", "maxLength": 32 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "blockedUserId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile and account settings"
+    },
+    "/chat_sessions/{sessionId}": {
+      "schema": "ChatSession",
+      "description": "Matched chat sessions"
+    },
+    "/chat_sessions/{sessionId}/messages/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "Individual messages in a chat session"
+    },
+    "/call_sessions/{callId}": {
+      "schema": "CallSession",
+      "description": "WebRTC call signalling session"
+    },
+    "/matching_queue/{userId}": {
+      "schema": "MatchingQueueItem",
+      "description": "Real-time user queue waiting for random pair"
+    },
+    "/reports/{reportId}": {
+      "schema": "Report",
+      "description": "Abuse and safety reports"
+    },
+    "/support_tickets/{ticketId}": {
+      "schema": "SupportTicket",
+      "description": "Customer support requests"
+    },
+    "/blocks/{blockId}": {
+      "schema": "UserBlock",
+      "description": "User blocklists"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "audit_1793028877611_u27w",
+    "adminUsername": "Mukesh Verma",
+    "action": "login",
+    "reason": "Successful admin login from IP 127.0.0.1",
+    "timestamp": "2026-10-26T15:34:37.611Z"
+  },
+  {
+    "id": "audit_1793028770453_j8tb",
+    "adminUsername": "Mukesh Verma",
+    "action": "login",
+    "reason": "Successful admin login from IP 127.0.0.1",
+    "timestamp": "2026-10-26T15:32:50.453Z"
+  }
+]

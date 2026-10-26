@@ -1,0 +1,12 @@
+{
+  "name": "Random Connect",
+  "description": "India's premier real-time random chat and WebRTC video calling platform with Google Authentication, intelligent matchmaking, contact-safety filters, Hindi & English localization, and 24/7 customer support.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

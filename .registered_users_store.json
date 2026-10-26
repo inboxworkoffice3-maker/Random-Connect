@@ -1,0 +1,22 @@
+[
+  {
+    "uid": "test-user-1",
+    "publicId": "RC-TEST1",
+    "displayName": "Rohan Sharma",
+    "email": "rohan@example.com",
+    "city": "Delhi NCR",
+    "gender": "prefer_not_to_say",
+    "age": 18,
+    "language": "en",
+    "matchingPreference": "open",
+    "isProfileComplete": true,
+    "isBanned": false,
+    "banReason": "",
+    "isSuspended": false,
+    "warningCount": 0,
+    "role": "user",
+    "lastActiveAt": "2026-10-26T15:34:37.636Z",
+    "createdAt": "2026-10-26T15:34:37.620Z",
+    "updatedAt": "2026-10-26T15:34:37.620Z"
+  }
+]
